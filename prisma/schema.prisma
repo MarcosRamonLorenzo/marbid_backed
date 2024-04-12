@@ -14,10 +14,103 @@ datasource db {
 }
 
 model User {
+  id                String   @id @default(cuid()) 
+  email             String   @unique
+  password          String
+  name              String
+  description       String
+  image             String
+  label             String
+  country           String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  createdServices   Service[] @relation("createdServices")  
+  aplicatedServices Service[] @relation("aplicatedServices")
+  comments Comment[]
+  sentMessages     Message[] @relation("MessageToUser")
+  receivedMessages Message[] @relation("UserToMessage")
+  sentNotifications     Notification[] @relation("NotificationToUser")
+  receivedNotifications Notification[] @relation("UserToNotification")
+  startedConversations Conversation[]  @relation("ConversationToUser")
+  receivedConversations Conversation[] @relation("UserToConversation")
+}
+
+model Service {
+  id                String   @id @default(cuid()) 
+  title             String
+  content           String
+  image             String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  authorCreated     User     @relation(fields: [authorCreatedId], references: [id], name: "createdServices")
+  authorCreatedId   String
+  authorApplied     User?     @relation(fields: [authorAppliedId], references: [id], name: "aplicatedServices") 
+  authorAppliedId   String?
+  comments Comment[]
+  likes    Like[]
+  category Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+}
+
+model Comment {
   id        String   @id @default(cuid()) 
-  email     String   @unique
-  password  String
+  content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  service   Service  @relation(fields: [serviceId], references: [id])
+  serviceId String
+}
+
+model Like {
+  id        String   @id @default(cuid()) 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  service   Service  @relation(fields: [serviceId], references: [id])
+  serviceId String
+}
+
+
+model Category {
+  id        String   @id @default(cuid()) 
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  services  Service[]
+}
+
+model Message {
+  id          String   @id @default(cuid()) 
+  content     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  author      User     @relation("MessageToUser", fields: [authorId], references: [id])
+  authorId    String
+  receiver    User     @relation("UserToMessage", fields: [receiverId], references: [id])
+  receiverId  String
+  conversation   Conversation  @relation(fields: [conversationId], references: [id])
+  conversationId String
+}
+
+model Notification {
+  id          String   @id @default(cuid()) 
+  content     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  author      User     @relation("NotificationToUser", fields: [authorId], references: [id])
+  authorId    String
+  receiver    User     @relation("UserToNotification", fields: [receiverId], references: [id])
+  receiverId  String
+}
+
+model Conversation {
+  id          String   @id @default(cuid()) 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  author      User     @relation("ConversationToUser", fields: [authorId], references: [id])
+  authorId    String
+  receiver    User     @relation("UserToConversation", fields: [receiverId], references: [id])
+  receiverId  String
+  messages    Message[]
 }
