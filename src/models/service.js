@@ -1,5 +1,10 @@
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
 const getAll = async () => {
-  return {};
+  const services = await prisma.service.findMany();
+  return services;
 };
 
 const getById = async (id) => {
