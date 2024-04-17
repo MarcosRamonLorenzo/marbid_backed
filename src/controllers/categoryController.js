@@ -1,5 +1,5 @@
 import Category from "../models/category.js";
-import { handleErr } from "../middleware/ErrorHandler";
+import { handleErr } from "../middleware/errorHandler.js";
 
 const getAllCategories = async (req, res) => {
   try {
