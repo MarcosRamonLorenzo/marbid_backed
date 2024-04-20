@@ -1,23 +1,17 @@
-import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
-const router = Router();
+const express = require("express");
+const { PrismaClient } = require("@prisma/client");
+const serviceController = require("../controllers/serviceController.js");
 
-import {
-  getAllServices,
-  getServiceById,
-  createService,
-  updateService,
-  deleteService,
-} from "../controllers/serviceController.js";
+const router = express.Router();
 
-router.get("/", getAllServices);
+router.get("/", serviceController.getAllServices);
 
-router.get("/:id", getServiceById);
+router.get("/:id", serviceController.getServiceById);
 
-router.post("/", createService);
+router.post("/", serviceController.createService);
 
-router.put("/:id", updateService);
+router.put("/:id", serviceController.updateService);
 
-router.delete("/:id", deleteService);
+router.delete("/:id", serviceController.deleteService);
 
-export default router;
+module.exports = router;

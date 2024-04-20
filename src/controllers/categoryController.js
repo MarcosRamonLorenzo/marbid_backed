@@ -1,5 +1,5 @@
-import Category from "../models/category.js";
-import { handleErr } from "../middleware/errorHandler.js";
+const Category = require("../models/category.js");
+const { handleErr } = require("@errors/errorHandler.js");
 
 const getAllCategories = async (req, res) => {
   try {
@@ -58,7 +58,7 @@ const deleteCategory = async (req, res) => {
   }
 };
 
-export {
+module.exports = {
   createCategory,
   deleteCategory,
   getAllCategories,

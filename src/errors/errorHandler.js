@@ -8,4 +8,4 @@ const handleErr = (error, req, res) => {
   });
 };
 
-export { handleErr };
+module.exports = { handleErr };

@@ -1,5 +1,5 @@
-import Service from "../models/service.js";
-import { handleErr } from "../middleware/errorHandler.js";
+const Service = require("../models/service.js");
+const { handleErr } = require("../errors/errorHandler");
 
 const getAllServices = async (req, res) => {
   try {
@@ -56,7 +56,7 @@ const deleteService = async (req, res) => {
   }
 };
 
-export {
+module.exports = {
   createService,
   deleteService,
   getAllServices,

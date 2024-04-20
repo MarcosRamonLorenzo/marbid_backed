@@ -1,6 +1,8 @@
-import express from "express";
-import categoriesRouter from "./routes/category.routes.js";
-import serviceRouter from "./routes/service.routes.js";
+require("module-alias/register");
+
+const express = require("express");
+const categoriesRouter = require("./routes/category.routes.js");
+const serviceRouter = require("./routes/service.routes.js");
 
 const app = express();
 

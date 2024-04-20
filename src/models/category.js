@@ -1,4 +1,6 @@
-import { PrismaClient } from "@prisma/client/extension";
+const { PrismaClient } = require("@prisma/client");
+
+const prisma = new PrismaClient();
 
 const getAll = async () => {
   const categories = await prisma.category.findMany();
@@ -43,4 +45,4 @@ const deleteCategory = async (id) => {
   return deletedCategory;
 };
 
-export default { getAll, getById, create, update, deleteCategory };
+module.exports = { getAll, getById, create, update, deleteCategory };
