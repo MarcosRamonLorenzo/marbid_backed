@@ -21,6 +21,8 @@
     "module-alias": "^2.2.3"
   },
   "_moduleAliases": {
-    "@errors": "./src/errors"
+    "@errors": "./src/errors",
+    "@models": "./src/models",
+    "@controllers": "./src/controllers"
   }
 }

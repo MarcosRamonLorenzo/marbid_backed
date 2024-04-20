@@ -1,6 +1,5 @@
 const express = require("express");
-const { PrismaClient } = require("@prisma/client");
-const serviceController = require("../controllers/serviceController.js");
+const serviceController = require("@controllers/serviceController.js");
 
 const router = express.Router();
 

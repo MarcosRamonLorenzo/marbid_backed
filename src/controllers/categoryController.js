@@ -1,4 +1,4 @@
-const Category = require("../models/category.js");
+const Category = require("@models/category.js");
 const { handleErr } = require("@errors/errorHandler.js");
 
 const getAllCategories = async (req, res) => {

@@ -1,5 +1,5 @@
-const Service = require("../models/service.js");
-const { handleErr } = require("../errors/errorHandler");
+const Service = require("@models/service.js");
+const { handleErr } = require("@errors/errorHandler");
 
 const getAllServices = async (req, res) => {
   try {
