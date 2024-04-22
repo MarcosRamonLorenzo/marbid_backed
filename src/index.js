@@ -1,7 +1,6 @@
 require("module-alias/register");
 const express = require("express");
 const cors = require("cors");
-const { createProxyMiddleware } = require("http-proxy-middleware");
 
 // Importing routes.
 
@@ -13,14 +12,6 @@ const commentRouter = require("./routes/comment.routes.js");
 const app = express();
 
 app.use(cors());
-
-app.use(
-  "/api",
-  createProxyMiddleware({
-    target: "https://marbid-backed.onrender.com",
-    changeOrigin: true,
-  })
-);
 
 app.use(express.json());
 
