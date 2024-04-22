@@ -1,5 +1,4 @@
 const { PrismaClient } = require("@prisma/client");
-const { create } = require("./service");
 const prisma = new PrismaClient();
 
 const getAll = async () => {
