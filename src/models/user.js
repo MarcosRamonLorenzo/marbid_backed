@@ -14,22 +14,24 @@ const getById = async (id) => {
 };
 
 const create = async (user) => {
-  const { name, email, password, country, description, image, label } = user;
+  const {id, name, email, country, description, image,role, label } = user;
   const newUser = await prisma.user.create({
     data: {
-      name: name,
-      email: email,
-      country: country,
-      description: description,
-      image: image,
-      label: label,
+      id,
+      name,
+      email,
+      country,
+      description,
+      image,
+      role,
+      label,
     },
   });
   return newUser;
 };
 
 const update = async (id, user) => {
-  const { name, email, password, country, description, image, label } = user;
+  const { name, email, country, description, image, label } = user;
   const updatedUser = await prisma.user.update({
     where: { id: id },
     data: {

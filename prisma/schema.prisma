@@ -14,10 +14,9 @@ datasource db {
 }
 
 model User {
-  id                String   @id @default(cuid()) 
+  id                String   @id @unique
   email             String   @unique
   role              String
-  tokenAuth         String   @unique
   name              String
   description       String
   image             String
