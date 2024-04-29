@@ -19,7 +19,6 @@ const create = async (user) => {
     data: {
       name: name,
       email: email,
-      password: password,
       country: country,
       description: description,
       image: image,
@@ -36,7 +35,6 @@ const update = async (id, user) => {
     data: {
       name: name,
       email: email,
-      password: password,
       country: country,
       description: description,
       image: image,
