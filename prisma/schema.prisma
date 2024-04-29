@@ -16,12 +16,12 @@ datasource db {
 model User {
   id                String   @id @unique
   email             String   @unique
-  role              String
-  name              String
-  description       String
-  image             String
-  label             String
-  country           String
+  role              String   @default("USER")
+  name              String   @default("")
+  description       String   @default("")
+  image             String   @default("https://res.cloudinary.com/djzjepmnr/image/upload/v1633660004/default-user-image.png")
+  label             String   @default("")
+  country           String   @default("")
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   createdServices   Service[] @relation("createdServices")  

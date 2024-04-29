@@ -14,17 +14,12 @@ const getById = async (id) => {
 };
 
 const create = async (user) => {
-  const {id, name, email, country, description, image,role, label } = user;
+  const {id, email,role} = user;
   const newUser = await prisma.user.create({
     data: {
       id,
-      name,
       email,
-      country,
-      description,
-      image,
       role,
-      label,
     },
   });
   return newUser;
