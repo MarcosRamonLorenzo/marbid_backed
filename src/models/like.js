@@ -4,14 +4,14 @@ const prisma = new PrismaClient();
 
 const getLikesByService = async (serviceId) => {
   const likes = await prisma.like.findMany({
-    where: { serviceId: parseInt(serviceId) },
+    where: { serviceId: serviceId },
   });
   return likes;
 };
 
 const getLikeByUserId = async (userId) => {
   const likes = await prisma.like.findMany({
-    where: { authorId: parseInt(userId) },
+    where: { authorId: userId },
   });
   return likes;
 };
@@ -19,8 +19,8 @@ const getLikeByUserId = async (userId) => {
 const create = async (like) => {
   const newLike = await prisma.like.create({
     data: {
-      authorId: parseInt(like.authorId),
-      serviceId: parseInt(like.serviceId),
+      authorId: like.authorId,
+      serviceId: like.serviceId,
     },
   });
   return newLike;
@@ -28,7 +28,7 @@ const create = async (like) => {
 
 const deleteLike = async (id) => {
   const deletedLike = await prisma.like.delete({
-    where: { id: parseInt(id) },
+    where: { id: id },
   });
   return deletedLike;
 };

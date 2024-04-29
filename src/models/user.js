@@ -8,7 +8,7 @@ const getAll = async () => {
 
 const getById = async (id) => {
   const user = await prisma.user.findUnique({
-    where: { id: parseInt(id) },
+    where: { id: id },
   });
   return user;
 };
@@ -32,7 +32,7 @@ const create = async (user) => {
 const update = async (id, user) => {
   const { name, email, password, country, description, image, label } = user;
   const updatedUser = await prisma.user.update({
-    where: { id: parseInt(id) },
+    where: { id: id },
     data: {
       name: name,
       email: email,
@@ -48,7 +48,7 @@ const update = async (id, user) => {
 
 const deleteUser = async (id) => {
   const deletedUser = await prisma.user.delete({
-    where: { id: parseInt(id) },
+    where: { id: id },
   });
   return deletedUser;
 };

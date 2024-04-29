@@ -13,6 +13,7 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
+    
     const user = await User.getById(req.params.id);
 
     res.status(200).json({ status: "successful", data: user, error: null });

@@ -10,7 +10,7 @@ const getAll = async () => {
 
 const getById = async (id) => {
   const category = await prisma.category.findUnique({
-    where: { id: parseInt(id) },
+    where: { id:id },
   });
 
   return category;
@@ -28,7 +28,7 @@ const create = async (category) => {
 
 const update = async (id, category) => {
   const updatedCategory = await prisma.category.update({
-    where: { id: parseInt(id) },
+    where: { id: id },
     data: {
       name: category.name,
     },
@@ -39,7 +39,7 @@ const update = async (id, category) => {
 
 const deleteCategory = async (id) => {
   const deletedCategory = await prisma.category.delete({
-    where: { id: parseInt(id) },
+    where: { id: id },
   });
 
   return deletedCategory;
