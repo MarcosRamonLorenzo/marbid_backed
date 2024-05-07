@@ -24,7 +24,6 @@ const getUserById = async (req, res) => {
 
 const createUser = async (req, res) => {
   const user = req.body;
-  console.log(user);
   try {
     const newUser = await User.create(user);
     res.status(201).json({ status: "successful", data: newUser, error: null });
