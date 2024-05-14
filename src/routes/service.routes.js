@@ -13,4 +13,8 @@ router.put("/:id", serviceController.updateService);
 
 router.delete("/:id", serviceController.deleteService);
 
+router.get("/created/:idUser", serviceController.getCreatedServicesByUserId);
+
+router.get("/applied/:idUser", serviceController.getAppliedServicesByUserId);
+
 module.exports = router;

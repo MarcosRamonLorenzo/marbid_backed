@@ -42,4 +42,22 @@ const deleteService = async (id) => {
   return deletedService;
 };
 
-module.exports = { getAll, getById, create, update, deleteService };
+const getCreatedServicesByUser = async (idUser) => {
+  const services = await prisma.service.findMany({
+    where: {
+      authorCreatedId: idUser,
+    },
+  });
+  return services;
+}
+const getAppliedServicesByUser = async (idUser) => {
+  const services = await prisma.service.findMany({
+    where: {
+      authorAppliedId: idUser,
+    },
+  });
+  return services;
+}
+
+
+module.exports = { getAll, getById, create, update, deleteService,getCreatedServicesByUser,getAppliedServicesByUser };

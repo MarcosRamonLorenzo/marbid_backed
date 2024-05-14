@@ -56,10 +56,33 @@ const deleteService = async (req, res) => {
   }
 };
 
+const getCreatedServicesByUserId = async (req , res) =>{
+  try {
+    const services = await Service.getCreatedServicesByUser(req.params.idUser);
+    res.status(200).json({status: "successful", data: services, error: null});
+  } catch (error) {
+    handleErr(error, req, res);
+  }
+}
+
+const getAppliedServicesByUserId = async (req , res) =>{
+  try {
+    const services = await Service.getAppliedServicesByUser(req.params.idUser);
+    res.status(200).json({status: "successful", data: services, error: null});
+  } catch (error) {
+    handleErr(error, req, res);
+  }
+}
+
+
+
+
 module.exports = {
   createService,
   deleteService,
   getAllServices,
   getServiceById,
   updateService,
+  getCreatedServicesByUserId,
+  getAppliedServicesByUserId
 };
