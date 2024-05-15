@@ -15,21 +15,29 @@ const getById = async (id) => {
 };
 
 const create = (service) => {
+  const {title,content,categoryId,image,price} = service
   const newService = prisma.service.create({
     data: {
-      title: service.title,
-      description: service.description,
+      title,
+      content,
+      categoryId,
+      image,
+      price
     },
   });
   return newService;
 };
 
 const update = async (id, service) => {
+  const {title,content,categoryId,image,price} = service
   const updatedService = await prisma.service.update({
     where: { id: id },
     data: {
-      title: service.title,
-      description: service.description,
+      title,
+      content,
+      categoryId,
+      image,
+      price
     },
   });
   return updatedService;
