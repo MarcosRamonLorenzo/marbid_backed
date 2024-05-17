@@ -30,7 +30,9 @@ const createService = async (req, res) => {
     res
       .status(201)
       .json({ status: "successful", data: newService, error: null });
-  } catch (error) {}
+  } catch (error) {
+    handleErr(error, req, res);
+  }
 };
 
 const updateService = async (req, res) => {
