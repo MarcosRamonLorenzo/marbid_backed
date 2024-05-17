@@ -3,26 +3,42 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const getAll = async () => {
-  const services = await prisma.service.findMany();
+  const services = await prisma.service.findMany({
+    include: {
+      authorCreated: true,
+    },
+  });
   return services;
 };
 
 const getById = async (id) => {
   const service = await prisma.service.findUnique({
     where: { id: id },
+    include: {
+      authorCreated: true,
+    },
   });
   return service;
 };
 
 const create = (service) => {
-  const {title,content,categoryId,image,price} = service
+  const {title, content, category, image, price, authorCreated} = service
   const newService = prisma.service.create({
     data: {
       title,
       content,
-      categoryId,
       image,
-      price
+      price,
+      authorCreated: {
+        connect: {
+          id: authorCreated
+        }
+      },
+      category: {
+        connect: {
+          id: category
+        }
+      }
     },
   });
   return newService;
@@ -55,17 +71,24 @@ const getCreatedServicesByUser = async (idUser) => {
     where: {
       authorCreatedId: idUser,
     },
-  });
-  return services;
-}
-const getAppliedServicesByUser = async (idUser) => {
-  const services = await prisma.service.findMany({
-    where: {
-      authorAppliedId: idUser,
+    include: {
+      authorCreated: true,
     },
   });
   return services;
-}
+};
+
+const getAppliedServicesByUser = async (idUser) => {
+  const services = await prisma.service.findMany({
+    where: {
+      authorAppliedId: idUser
+    },
+    include: {
+      authorApplied: true,
+    },
+  });
+  return services;
+};
 
 
 module.exports = { getAll, getById, create, update, deleteService,getCreatedServicesByUser,getAppliedServicesByUser };
