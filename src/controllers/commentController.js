@@ -1,37 +1,38 @@
 const Comment = require("@models/comment");
 const { handleErr } = require("@errors/errorHandler.js");
 
-const getCommentsByServiceId = async (serviceId) => {
+const getCommentsByServiceId = async (req, res) => {
   try {
-    const comments = await Comment.getCommentsByServiceId(serviceId);
-    return comments;
+    const comments = await Comment.getCommentsByServiceId(req.params.serviceId);
+    res.status(200).json(comments);
+  } catch (error) {
+    console.log(error);
+    handleErr(error);
+  }
+};
+
+const getCommentByUserId = async (req, res) => {
+  try {
+    const comments = await Comment.getCommentByUserId(req.params.userId);
+    res.status(200).json(comments);
   } catch (error) {
     handleErr(error);
   }
 };
 
-const getCommentByUserId = async (userId) => {
+const create = async (req, res) => {
   try {
-    const comments = await Comment.getCommentByUserId(userId);
-    return comments;
+    const newComment = await Comment.create(req.body);
+    res.status(201).json(newComment);
   } catch (error) {
     handleErr(error);
   }
 };
 
-const create = async (comment) => {
+const deleteComment = async (req, res) => {
   try {
-    const newComment = await Comment.create(comment);
-    return newComment;
-  } catch (error) {
-    handleErr(error);
-  }
-};
-
-const deleteComment = async (id) => {
-  try {
-    const deletedComment = await Comment.deleteComment(id);
-    return deletedComment;
+    const deletedComment = await Comment.deleteComment(req.params.id);
+    res.status(200).json(deletedComment);
   } catch (error) {
     handleErr(error);
   }
