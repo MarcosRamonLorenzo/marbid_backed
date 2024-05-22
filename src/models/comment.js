@@ -5,6 +5,9 @@ const prisma = new PrismaClient();
 const getCommentsByServiceId = async (serviceId) => {
   const comments = await prisma.comment.findMany({
     where: { serviceId: serviceId },
+    include: {
+      author: true,
+    },
   });
   return comments;
 };
@@ -12,6 +15,9 @@ const getCommentsByServiceId = async (serviceId) => {
 const getCommentByUserId = async (userId) => {
   const comments = await prisma.comment.findMany({
     where: { authorId: userId },
+    include: {
+      service: true,
+    },
   });
   return comments;
 };
@@ -22,6 +28,9 @@ const create = async (comment) => {
       content: comment.content,
       authorId: comment.authorId,
       serviceId: comment.serviceId,
+    },
+    include: {
+      author: true,
     },
   });
   return newComment;

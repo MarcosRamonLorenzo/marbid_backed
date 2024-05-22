@@ -23,7 +23,7 @@ const getCommentByUserId = async (req, res) => {
 const create = async (req, res) => {
   try {
     const newComment = await Comment.create(req.body);
-    res.status(201).json({ status: "successful ", data: newComment, error: null });
+    res.status(200).json({ status: "successful ", data: newComment, error: null });
   } catch (error) {
     handleErr(error);
   }
