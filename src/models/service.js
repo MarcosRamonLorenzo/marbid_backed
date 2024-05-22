@@ -6,6 +6,7 @@ const getAll = async () => {
   const services = await prisma.service.findMany({
     include: {
       authorCreated: true,
+      category: true,
     },
   });
   return services;
@@ -16,6 +17,7 @@ const getById = async (id) => {
     where: { id: id },
     include: {
       authorCreated: true,
+      category: true,
     },
   });
   return service;
@@ -73,6 +75,7 @@ const getCreatedServicesByUser = async (idUser) => {
     },
     include: {
       authorCreated: true,
+      category: true,
     },
   });
   return services;
@@ -85,6 +88,7 @@ const getAppliedServicesByUser = async (idUser) => {
     },
     include: {
       authorApplied: true,
+      category: true,
     },
   });
   return services;
