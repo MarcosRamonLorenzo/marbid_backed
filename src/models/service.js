@@ -8,6 +8,9 @@ const getAll = async () => {
       authorCreated: true,
       category: true,
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
   return services;
 };
@@ -77,6 +80,9 @@ const getCreatedServicesByUser = async (idUser) => {
       authorCreated: true,
       category: true,
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
   return services;
 };
@@ -89,6 +95,9 @@ const getAppliedServicesByUser = async (idUser) => {
     include: {
       authorApplied: true,
       category: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
     },
   });
   return services;
