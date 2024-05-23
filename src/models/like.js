@@ -3,7 +3,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const getLikesByService = async (serviceId) => {
-  const likes = await prisma.like.findMany({
+  const likes = await prisma.like.count({
     where: { serviceId: serviceId },
   });
   return likes;
@@ -11,7 +11,10 @@ const getLikesByService = async (serviceId) => {
 
 const getLikeByUserId = async (userId) => {
   const likes = await prisma.like.findMany({
-    where: { authorId: userId },
+    where: { userId },
+    include:{
+      service: true,
+    }
   });
   return likes;
 };
@@ -19,7 +22,7 @@ const getLikeByUserId = async (userId) => {
 const create = async (like) => {
   const newLike = await prisma.like.create({
     data: {
-      authorId: like.authorId,
+      userId: like.userId,
       serviceId: like.serviceId,
     },
   });

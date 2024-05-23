@@ -23,3 +23,10 @@ const deleteLike = async (req, res) => {
   const deletedLike = await Like.deleteLike(id);
   res.json(deletedLike);
 };
+
+module.exports = {
+  getLikesByService,
+  getLikeByUserId,
+  create,
+  deleteLike,
+}
