@@ -1,32 +1,57 @@
 const Like = require("@models/like");
+const { handleErr } = require("@errors/errorHandler");
 
 const getLikesByService = async (req, res) => {
-  const { serviceId } = req.params;
-  const likes = await Like.getLikesByService(serviceId);
-  res.json(likes);
+  try {
+    const { serviceId } = req.params;
+    const likes = await Like.getLikesByService(serviceId);
+    res.json(likes);
+  } catch (error) {
+    handleErr(error, req, res);  }
 };
 
 const getLikeByUserId = async (req, res) => {
-  const { userId } = req.params;
-  const likes = await Like.getLikeByUserId(userId);
-  res.json(likes);
+  try {
+    const { userId } = req.params;
+    const likes = await Like.getLikeByUserId(userId);
+    res.json(likes);
+  } catch (error) {
+    handleErr(error, req, res);  }
 };
 
+const isServiceLikedByUser = async (req,res) =>{
+  try {
+    const {userId,serviceId} = req.params;
+    const like = await Like.isServiceLikedByUser(userId,serviceId);
+    res.json(like);
+  } catch (error) {
+    handleErr(error, req, res);  }
+}
+
 const create = async (req, res) => {
-  const like = req.body;
-  const newLike = await Like.create(like);
-  res.json(newLike);
+  try {
+    const like = req.body;
+    console.log(like);
+    const newLike = await Like.create(like);
+    res.json(newLike);
+  } catch (error) {
+    handleErr(error, req, res);  }
 };
 
 const deleteLike = async (req, res) => {
-  const { id } = req.params;
-  const deletedLike = await Like.deleteLike(id);
-  res.json(deletedLike);
-};
+  try {
+    const { userId , serviceId } = req.params;
+    const deletedLike = await Like.deleteLike(userId,serviceId);
+    res.json(deletedLike);
+  } catch (error) {
+    handleErr(error, req, res);
+  };
+}
 
 module.exports = {
   getLikesByService,
   getLikeByUserId,
+  isServiceLikedByUser,
   create,
   deleteLike,
 }

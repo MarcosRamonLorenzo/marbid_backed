@@ -7,8 +7,10 @@ router.get("/service/:serviceId", likeController.getLikesByService);
 
 router.get("/user/:userId", likeController.getLikeByUserId);
 
+router.get("/isLiked/:userId/:serviceId", likeController.isServiceLikedByUser);
+
 router.post("/", likeController.create);
 
-router.delete("/:id", likeController.deleteLike);
+router.delete("/:userId/:serviceId", likeController.deleteLike);
 
 module.exports = router;

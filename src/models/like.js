@@ -14,29 +14,50 @@ const getLikeByUserId = async (userId) => {
     where: { userId },
     include:{
       service: true,
+      user:true,
     }
   });
   return likes;
 };
 
+const isServiceLikedByUser = async (userId, serviceId) => {
+  const like = await prisma.like.findFirst({
+    where: { userId, serviceId },
+  });
+  return like !== null;
+};
+
 const create = async (like) => {
   const newLike = await prisma.like.create({
     data: {
-      userId: like.userId,
-      serviceId: like.serviceId,
+      user: {
+        connect: {
+          id: like.user,
+        },
+      },
+      service: {
+        connect: {
+          id: like.service,
+        },
+      },
     },
   });
   return newLike;
 };
 
-const deleteLike = async (id) => {
+const deleteLike = async (userId,serviceId ) => {
   const deletedLike = await prisma.like.delete({
-    where: { id: id },
+    where: { 
+      serviceId_userId: {
+        userId ,
+        serviceId, 
+      }
+    },
   });
   return deletedLike;
 };
-
 module.exports = {
+  isServiceLikedByUser,
   getLikesByService,
   getLikeByUserId,
   create,
