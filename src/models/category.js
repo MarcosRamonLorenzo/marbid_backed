@@ -3,14 +3,18 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const getAll = async () => {
-  const categories = await prisma.category.findMany();
+  const categories = await prisma.category.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
   return categories;
 };
 
 const getById = async (id) => {
   const category = await prisma.category.findUnique({
-    where: { id:id },
+    where: { id },
   });
 
   return category;
@@ -28,7 +32,7 @@ const create = async (category) => {
 
 const update = async (id, category) => {
   const updatedCategory = await prisma.category.update({
-    where: { id: id },
+    where: { id },
     data: {
       name: category.name,
     },
@@ -39,7 +43,7 @@ const update = async (id, category) => {
 
 const deleteCategory = async (id) => {
   const deletedCategory = await prisma.category.delete({
-    where: { id: id },
+    where: { id },
   });
 
   return deletedCategory;
