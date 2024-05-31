@@ -76,7 +76,47 @@ const getAppliedServicesByUserId = async (req , res) =>{
   }
 }
 
+const createRequest = async (req,res) => {
+  try {
+    const idService = req.body.idService;
+    const idUser = req.body.idUser;
+    const newRequest = await Service.createRequest(idService, idUser);
+    res.status(201).json({status: "successful", data: newRequest, error: null});
+  } catch (error) {
+    handleErr(error, req, res);
+  }
 
+}
+
+const getServiceRequests = async ( req , res ) =>{
+  try {
+    const services = await Service.getServiceRequests(req.params.idService);
+    res.status(200).json({status: "successful", data: services, error: null});
+  } catch (error) {
+    handleErr(error, req, res);
+  }
+
+}
+
+
+const acceptServiceRequest = async (req, res) => {
+  try {
+    const idUser = req.body.idUser;
+    const idService = req.body.idService;
+  
+    // Aplicar usuario al servicio
+    const updatedService = await Service.applyUserForService(idUser, idService);
+  
+    // Eliminar solicitudes de servicio
+    if (updateService) await Service.deleteServiceRequests(idService);
+  
+    res.status(200).json({status: "successful", data: updatedService, error: null});
+
+  } catch (error) {
+    handleErr(error,req.res);
+  }
+
+} 
 
 
 module.exports = {
@@ -86,5 +126,8 @@ module.exports = {
   getServiceById,
   updateService,
   getCreatedServicesByUserId,
-  getAppliedServicesByUserId
+  getAppliedServicesByUserId,
+  getServiceRequests,
+  acceptServiceRequest,
+  createRequest
 };
