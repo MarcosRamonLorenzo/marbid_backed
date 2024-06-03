@@ -58,18 +58,18 @@ model Comment {
   id        String   @id @default(cuid()) 
   content   String
   createdAt DateTime @default(now())
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id],onDelete: Cascade)
   authorId  String
-  service   Service  @relation(fields: [serviceId], references: [id])
+  service   Service  @relation(fields: [serviceId], references: [id],onDelete: Cascade)
   serviceId String
 }
 
 model Like {
 
   createdAt DateTime @default(now())
-  service   Service  @relation(fields: [serviceId], references: [id])
+  service   Service  @relation(fields: [serviceId], references: [id],onDelete: Cascade)
   serviceId String  
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id],onDelete: Cascade)
   userId    String  
   @@id([serviceId, userId])
 
@@ -90,7 +90,7 @@ model ServiceRequest {
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
   userId    String
-  service   Service  @relation(fields: [serviceId], references: [id])
+  service   Service  @relation(fields: [serviceId], references: [id] ,onDelete: Cascade)
   serviceId String
 
   @@unique([userId, serviceId])
