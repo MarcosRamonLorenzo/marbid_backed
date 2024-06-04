@@ -25,6 +25,11 @@ const getServiceById = async (req, res) => {
 
 const createService = async (req, res) => {
   const service = req.body;
+  // Here I check that price is a float
+  if (isNaN(service.price)) {
+    return res.status(400).json({ status: "error", error:{ message: "El precio tiene que ser un número" }});
+  }
+
   try {
     const newService = await Service.create(service);
     res
@@ -37,6 +42,12 @@ const createService = async (req, res) => {
 
 const updateService = async (req, res) => {
   const service = req.body;
+
+   // Here I check that price is a float
+   if (isNaN(service.price)) {
+    return res.status(400).json({ status: "error", error:{ message: "El precio tiene que ser un número" }});
+  }
+
   try {
     const updatedService = await Service.update(req.params.id, service);
     res
